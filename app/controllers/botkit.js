@@ -5,13 +5,20 @@
 var Botkit = require('botkit')
 var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/botkit-demo'
 var db = require('../../config/db')({mongoUri: mongoUri})
+var watsonMiddleware = require('botkit-middleware-watson')({
+    username: 'e83386e4-2391-4665-9954-c28b848e7e94',
+    password: 'uVTtOO22w28d',
+    workspace_id: '626dad69-bce3-44c4-908e-9f10faee6fcc',
+    version_date: '2016-09-20',
+    minimum_confidence: 0.50, // (Optional) Default is 0.75
+});
 
 var controller = Botkit.facebookbot({
   debug: true,
   access_token: process.env.FACEBOOK_PAGE_TOKEN,
-  verify_token: process.env.FACEBOOK_VERIFY_TOKEN,
-  storage: db
+  verify_token: process.env.FACEBOOK_VERIFY_TOKEN
 })
+controller.middleware.receive.use(watsonMiddleware.receive);
 
 var bot = controller.spawn({})
 
@@ -46,6 +53,7 @@ var handler = function (obj) {
 
           // save if user comes from m.me adress or Facebook search
           create_user_if_new(facebook_message.sender.id, facebook_message.timestamp)
+          bot.reply(message, {sender_action: "typing_on"});
 
           controller.receiveMessage(bot, message)
         }
@@ -107,14 +115,14 @@ var handler = function (obj) {
 }
 
 var create_user_if_new = function (id, ts) {
-  controller.storage.users.get(id, function (err, user) {
-    if (err) {
-      console.log(err)
-    }
-    else if (!user) {
-      controller.storage.users.save({id: id, created_at: ts})
-    }
-  })
+  // controller.storage.users.get(id, function (err, user) {
+  //   if (err) {
+  //     console.log(err)
+  //   }
+  //   else if (!user) {
+  //     controller.storage.users.save({id: id, created_at: ts})
+  //   }
+  // })
 }
 
 exports.handler = handler
