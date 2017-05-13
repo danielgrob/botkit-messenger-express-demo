@@ -104,7 +104,7 @@ module.exports = function (controller) {
                         'buttons': [
                             {
                                 'type': 'postback',
-                                'title': 'Versichern',
+                                'title': 'Vollkasko versichern',
                                 'payload': 'ja'
                             }
                         ]
@@ -130,7 +130,7 @@ module.exports = function (controller) {
                         'buttons': [
                             {
                                 'type': 'postback',
-                                'title': 'Versichern',
+                                'title': 'Vollkasko versichern',
                                 'payload': 'vollkasko'
                             }
                         ]
@@ -141,7 +141,7 @@ module.exports = function (controller) {
                         'buttons': [
                             {
                                 'type': 'postback',
-                                'title': 'Versichern',
+                                'title': 'Teilkasko versichern',
                                 'payload': 'teilkasko'
                             }
                         ]
@@ -152,7 +152,7 @@ module.exports = function (controller) {
                         'buttons': [
                             {
                                 'type': 'postback',
-                                'title': 'Versichern',
+                                'title': 'Haftplicht versichern',
                                 'payload': 'haftpflicht'
                             }
                         ]
@@ -169,7 +169,7 @@ module.exports = function (controller) {
         let attachment = {
             "type":"file",
             "payload":{
-                "url":"https://canoocodecamp.localtunnel.me/MF-Kompass.pdf"
+                "url":"https://canoocodecamp.localtunnel.me/Motorfahrzeug Police.pdf"
             }
         };
 
